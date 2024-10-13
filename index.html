@@ -6,7 +6,20 @@
 </div>
 
 <script>
-  //Vue == 인스턴스
+  // Vue 2 - 2가지 방법으로 출력
+  /* 1. 
+  new Vue({
+    el: '#app'
+  }) 
+  
+  2.
+  new Vue({
+  
+  }).$mount('#app');
+  */
+
+  // Vue 3
+  // Vue == 인스턴스
     Vue.createApp({ // == const { createApp } = Vue;
       data() {
         return {

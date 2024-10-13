@@ -1,0 +1,40 @@
+<!-- HTML -->
+ <div id="app">
+    <p>{{ count }}</p> <!-- reactivity가 주입된 데이터 속성을 사용하는 방식 >> {{}} 
+    
+    아래 data라는 속성에서 선언된 값들이 변경됨에 따라 화면의 ui(#app)도 모두 변한다.
+    -->
+
+    <button v-on:click="addCount">+</button>
+    <!-- Vue directive >> v-on:click="a" <button>이 클릭 이벤트가 발생될 때마다 "a"라는 methods가 실행되라! -->
+ </div>
+
+ <!-- JavaScript -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    Vue.createApp({
+        data: function() {
+            // data() {} >>이렇게 줄여쓸 수 있음
+
+            // 인스턴스 옵션 속성 중 하나 = data
+            /*
+                JavaScript는 1급 객체이기 때문에 속성에 함수를 연결할 수 있음 >> 안에 return 으로 객체 넘길 수 있음
+            */ 
+           return {
+            count : 0 //count : 0; >> ; 쓰면 error 남
+            // 이 안에서 정의된 값이 앞에 배웠던 reactivity 주입되어 적용된다
+           }
+        },
+
+        // 값을 변경할 수 있는 버튼 만들기
+        methods: {
+            addCount() {
+            // = addCount: function() {}
+                this.count++; //addCount라는 methods가 실행될 때마다 값이 하나씩 plus 된다.
+                
+                // 여기서 this는 Vue.createApp에 있는 값에 접근하겠다 
+                // .count >> reactivity가 주입된 data 값에 접근하겠다.
+            }
+        }
+    }).mount('#app'); //mount('출력할 곳의 태그');
+  </script>
