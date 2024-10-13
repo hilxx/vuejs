@@ -1,0 +1,47 @@
+<div id="app"></div>
+
+<script>
+    const data = { // data라는 변수를 선언하고 그 변수를 객체로 선언함 > 그 객체의 속성이 a이고, a는 10이라는 값을 가짐
+        a: 10
+    }
+    
+    //constructor 이기 때문에 new 선언
+    //()안에 data라는 타겟값을 넣기
+
+    // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy
+
+    //proxy의 첫번째 인자에 위에서 선언했던 객체인 data 값을 넘긴 것 
+    // 두번째 인자에 data의 동작을 정의하는 {} 값을 넘김
+    // 이때 set() {}, get() {} 두 가지로 정의할 수 있음
+    new Proxy(data, {
+        get() {
+            console.log('hi')
+
+            // data 객체에 대해 proxy라는 동작을 걸겠다 = data의 동작을 모방하겠다는 무언가를 만들겠다 (new Proxy)
+        }
+    })
+
+    var app = new Proxy(data, {
+        get() {
+            console.log('갑 접근');
+
+            // var = app 의 내용은 처음엔 data와 동일함, 그러나 proxy를 선언하여 app 안의 값을 변경했을 경우 data의 값도 proxy에 선언한 것처럼 동일하게 바뀜
+
+            // 콘솔창에서 app과 data를 치면 a:10값이 출력됨
+            // app.a 값 입력 시 '갑 접근'이 출력됨 >> proxy라는 것이 data라는 객체를 모방하여 그 동작을 추가('갑 접근')했다라고 보면 됨.
+
+            /* get은 첫번째 인자인 data객체의 속성에 접근할 때마다 출력할 내용이라고 보면 됨. >> 접근 app.a <<
+            app 입력 = a:10
+            data 입력 = a:10
+            app.a 입력 = a:10과 '갑 접근'이 같이 출력됨
+            */
+        },
+
+        set() {
+            console.log('값 갱신');
+
+            // app.a = 20; 입력 >> '값 갱신' 과 20 출력됨
+            // app.a 입력 >> undefined >> 왜..?
+        }
+    })
+</script>
