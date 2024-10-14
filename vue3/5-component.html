@@ -1,0 +1,26 @@
+<!-- 
+    component?
+    >> 화면의 영역을 구분하여 개발
+-->
+
+<!-- HTML -->
+<div id="app">
+    <!-- 2. 컴포넌트 표시 -->
+     <app-header></app-header>
+</div>
+
+<!-- Javascript -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    Vue.createApp({
+        // 1. component를 등록하는 방법 중 가장 간단한 방법 
+        // >> 인스턴스 옵션 속성 - 옵션 API 사용
+        components: {
+            // '컴포넌트 이름' : 컴포넌트 코드/내용/값
+            // 'app-header'라는 컴포넌트 이름에 {} 객체를 열어서 컴포넌트 내용인 template: '<h1>컴포넌트 등록</h1>' 작성
+            'app-header': {
+                template: '<h1>컴포넌트 등록</h1>'
+            }
+        }
+    }).mount('#app');
+</script>

@@ -23,12 +23,12 @@
 
     var app = new Proxy(data, {
         get() {
-            console.log('갑 접근');
+            console.log('값 접근');
 
             // var = app 의 내용은 처음엔 data와 동일함, 그러나 proxy를 선언하여 app 안의 값을 변경했을 경우 data의 값도 proxy에 선언한 것처럼 동일하게 바뀜
 
             // 콘솔창에서 app과 data를 치면 a:10값이 출력됨
-            // app.a 값 입력 시 '갑 접근'이 출력됨 >> proxy라는 것이 data라는 객체를 모방하여 그 동작을 추가('갑 접근')했다라고 보면 됨.
+            // app.a 값 입력 시 '값 접근'이 출력됨 >> proxy라는 것이 data라는 객체를 모방하여 그 동작을 추가('값 접근')했다라고 보면 됨.
 
             /* get은 첫번째 인자인 data객체의 속성에 접근할 때마다 출력할 내용이라고 보면 됨. >> 접근 app.a <<
             app 입력 = a:10

@@ -1,0 +1,34 @@
+<!-- HTML -->
+<div id="app">
+    <!-- 1. 원시적인 방법 
+    <ul>
+        <li>{{ items[0] }}</li>
+        <li>{{ items[1] }}</li>
+        <li>{{ items[2] }}</li>
+    </ul> -->
+
+    <!-- v-for 사용 -->
+    <ul>
+        <!-- <li v-for="in items"></li>
+         in의 대상으로 items를 넣기 >> items라고 하는 값을 대상으로 순회하겠다 (삼성 ~ 인프런) -->
+
+         <!-- 순회할 때 각각의 item으로 설정할 수 있음
+           >> 각각의 삼성 ~ 인프런을 item으로 지정 -->
+         <li v-for="item in items">
+            {{ item }}
+         </li>
+    </ul>
+</div>
+
+<!-- Javascript -->
+ <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+ <script>
+    Vue.createApp({
+        data() {
+            return {
+                items: ['삼성', '네이버', '인프런']
+                //items라고 하는 data 속성에 삼성~인프런 요소를 가진 하나의 배열을 만듦
+            }
+        },
+    }).mount('#app');
+ </script>
