@@ -1,0 +1,50 @@
+<!-- HTML -->
+ <div id="app">
+    <!-- 컴포넌트 표시 -->
+    <!-- <app-header v-bind:props 이름 = "상위 컴포넌트의 data 이름"></app-header> 
+        상위 컴포넌트 이름 = 루트 컴포넌트 = createApp을 의미
+        그 안에 있는 data의 appTitle이 캡틴이 넘기고 싶은 데이터이기 때문에 appTitle을 연결해주면 됨
+    -->
+    <app-header v-bind:title="appTitle"></app-header>
+    <!-- 6. 개발자도구 > Vue > <Root> 를 클릭했을 때 
+        >> data appTitle: "props 넘기기" << 출력
+
+        <AppHeader> 클릭했을 때
+        >> props title: "props 넘기기" << 출력됨
+
+        but, ui로 화면에 출력되진 않음 >> 7번 과정 거치기
+        -->
+ </div>
+
+ <!-- ↑ 루트 컴포넌트 
+    1. 루트 > app-header로 데이터를 내릴 수 있게끔 props를 설정하기
+    3. 루트에서 데이터를 정의해서 app-header로 내려주기
+ -->
+
+ <!-- JavaScript -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    Vue.createApp({
+        // 3. 루트에서 데이터를 정의해서 app-header로 내려주기
+        data() {
+            return {
+                // 4. title로 보낼 문자열 설정하기
+                appTitle: 'props 넘기기'
+                // 5. appTitle 을 밑의 components 의 props로 넘겨주면 됨
+            }
+        },
+
+        components: {
+            // '컴포넌트 이름' : 컴포넌트 내용
+            'app-header' : { // ← 하위 컴포넌트
+                // 2. app-header에 데이터를 받을 수 있는 준비 해놓기
+                template: '<h1> {{ title }} </h1>',
+                // 7. template: '<h1> 컴포넌트 내용 </h1>', << 과 같은 직접적인 문자열이 아닌 위에서 넘겨준 데이터를 연결하겠다 >> 콧수염 괄호 사용 {{ title }}
+                // vuejs로 개발을 할 때 애플리케이션 인스턴스 안에 정의된 값은 콧수염 괄호를 통해서 표시될 수 있다.
+
+                props: ['title'] // 데이터를 받을 수 있는 props 설정 >> 배열로 설정 >> 받을 이름 = 'title'
+                // props > title:undefined 로 출력 >> javascript에서 변수 초기값을 설정해주지 않으면 undefined로 뜨는 것과 같음
+            }
+        }
+    }).mount('#app');
+</script>
