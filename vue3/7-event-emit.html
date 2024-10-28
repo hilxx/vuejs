@@ -1,0 +1,45 @@
+<!-- HTML 다시 보기 >> 이벤트 발생 안함 -->
+ <div id="app"> <!-- 상위 컴포넌트 -->
+    <!-- 4. 화면에 출력하기 위해 tag형태로 작성하기 >> 아직 화면엔 출력 x -->
+    <app-contents v-on:refresh="showAlert"></app-contents>
+    <!-- 8-1. v-on:이벤트 이름="이벤트를 받아서 수행할 상위 컴포넌트의 메서드 이름" -->
+ </div>
+
+ <!-- Javascript -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    // 2-2. 선언 >> 백틱 ``(자바스크립트 여러 줄 작성 가능, ${}로 변수 넣어서 사용 가능) 사용해서 여러 줄 선언할 수 있음
+    const appContents = { // << 하위컴포넌트
+        // 5. <button>에 v-on:click=""에 sendEvent라는 메서드 추가하기
+        // 속성: template, methods // 값 : `<p><button></button></p>`, sendEvent(){~~~}
+        template: `
+            <p>
+                <button v-on:click="sendEvent">갱신</button>
+            </p>
+        `,
+        methods: { // 6. methods 추가
+            sendEvent() {
+                // template 안에 v-on:click이 적용된 버튼을 누르면 받을 수 있는 메서드를 정리한 것임
+                this.$emit('refresh');
+
+                // 7. this.$emit('갱신') << 하위 컴포넌트에서 상위 컴포넌트로 쏘아올릴 수 있는 이벤트
+            }
+        }
+    }
+
+    // ↓ 루트 컴포넌트
+    Vue.createApp({
+        // 8-2. 루트 컴포넌트에 이벤트를 받아서 수행할 상위 컴포넌트의 메서드 선언
+        methods: {
+            showAlert() {
+                alert('새로고침');
+            }
+        },
+
+        components: { //1. 컴포넌트 등록
+            // '컴포넌트 이름' : 컴포넌트 내용
+            'app-contents': appContents // 3. 위에 선언한 컴포넌트 내용을 넣기
+            // 2-1. 컴포넌트 내용은 길어질 수 있기 떄문에 객체로 바로 선언하는 것이 아닌 위에 먼저 선언한 뒤에 사용하기 >> var appContents                
+        }
+    }).mount('#app');
+</script>
