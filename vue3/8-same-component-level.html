@@ -1,0 +1,79 @@
+<!-- HTML -->
+<!--
+    A = 데이터를 보내려는 컴포넌트
+    B = 데이터를 받으려는 컴포넌트
+
+    >> 같은 라인의 컴포넌트끼리는 서로 데이터를 주고 받을 수 없음
+    >> A를 상위 컴포넌트로 올렸다가, 상위 컴포넌트에서 하위 컴포넌트 B로 내리는 형식으로 데이터를 전달할 수 있음
+-->
+
+<div id="app">
+    <!-- 6. <app-header v--bind:프롭스이름="상위컴포넌트의 데이터 이름"></app-header> 
+        프롭스 이름 = appHeader에서 정의해주기 = 7번    
+        상위컴포넌트의 데이터 이름(=내릴 값)
+    -->
+    <!-- 확장자 vue가 아닌 HTML로 작성했을 때! appTitle = app-title -->
+    <app-header v-bind:app-title="message"></app-header>
+    <!-- 3. button의 이벤트 받기 -->
+    <app-contents v-on:login="receive"></app-contents>
+</div>
+
+<!-- Javascript -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const appHeader = {
+        //7. data 지우고, 프롭스 정의
+        props: ['appTitle'],
+
+        /*data() {
+            return{
+                appTitle: '로그인 하세요',
+            }
+        }, // 사실상 appHeader에 있는 data 값은 필요 없다
+        // why? >> appContents에서 직접적으로 appHeader의 값을 바꿀 수 없기 때문이다.*/
+        // 1. appHeader의 UI의 표현 vue 가 template로 등록되어 있음
+        template: '<h1>{{ appTitle }}</h1>',
+    }
+
+    const appContents = {
+        // 1. appContents의 UI의 표현 vue 가 template로 등록되어 있음
+        template: `
+            <p>
+                <button v-on:click="sendEvent">로그인</button>
+            </p>
+        `,
+        methods: {
+            sendEvent() {
+                this.$emit('login');
+                // 2. login이란 이벤트를 보냄 >> 받을 수 있도록 루트 컴포넌트에서 받아줘야함
+            }
+        }
+    }
+
+    // 루트 컴포넌트
+    Vue.createApp({
+        //4. data에 출력할 message 값 = 초기값은 '빈 값'
+        data() {
+            return {
+                message: ''
+            }
+        },
+
+        methods: {
+            receive() {
+                //3. 받았는지 확인하는 텍스트 출력
+                console.log("받았다.");
+
+                //5. this.message로 출력 가능
+                this.message = '로그인 됨'
+            }
+        },
+
+        components:{
+            // '컴포넌트 이름': 컴포넌트 내용
+            'app-header': appHeader,
+            'app-contents': appContents
+        }
+    }).mount('#app');
+
+</script>
