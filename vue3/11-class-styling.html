@@ -1,0 +1,44 @@
+<!-- Style -->
+<style>
+.primary{
+    color:coral;
+}
+</style>
+
+<!-- HTML -->
+<div id="app">
+    <!-- 데이터 바인딩이란?
+     >> 각각의 HTML 태그에 있는 attribute(?)라고 하는 class, id 동적으로 연결할 수 있는 기능 -->
+    <!-- v-bind:class / v-bind:id 등
+    v-bind는 Vue3에선 ':' << 로만 쓰이고 있음
+    >> <div :id="sectionId"></div> -->
+
+    <!-- class 바인딩 -->
+    <h1>클래스 바인딩</h1>
+    <!-- <div class="primary">데이터 바인딩 예제</div> -->
+    <!-- <div v-bind:class="textClass">데이터 바인딩 예제</div> -->
+    <div :class="textClass">데이터 바인딩 예제</div>
+
+    <!-- id 바인딩 -->
+    <h1>아이디 바인딩</h1>
+    <!-- <section :id="sectionId" style="color:deeppink"> -->
+    <section :id="sectionId" :style="sectionStyle">
+        반갑습니다.
+    </section>
+</div>
+
+
+<!-- Javascript -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                textClass: 'primary',
+                sectionId: 'tab1',
+                // 인라인으로 줬던 style도 별다른 data로 빼서 객체 형태로도 쓸 수 있음
+                sectionStyle: { color: 'deeppink' }
+            }
+        }
+    }).mount('#app');
+</script>

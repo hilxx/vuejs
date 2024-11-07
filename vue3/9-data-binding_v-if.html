@@ -1,0 +1,25 @@
+<!-- HTML -->
+ <div id="app">
+    <!-- 1. v-if -->
+    <p v-if="login">로그인 되었습니다.</p>
+    <p v-else>로그인 하세요.</p>
+    <button v-on:click="loginUser">로그인</button>
+ </div>
+
+<!-- Javascript -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                login: false // login이 false 이기 때문에 화면 출력 = 로그인 하세요.
+                //login: true // 로그인 되었습니다.
+            }
+        },
+        methods: {
+            loginUser() {
+                this.login = !this.login; // 토글링될 수 있게 코드 작성
+            }
+        }
+    }).mount('#app');
+</script>
